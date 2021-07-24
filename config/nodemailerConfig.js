@@ -11,7 +11,8 @@ const transport = nodemailer.createTransport({
   },
 });
 
-
+//Texto del Email que se envía al registrarse el usuario.
+//Se le manda el token asignado a cada usuario para su activación desde el email.
 module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
   transport.sendMail({
     from: user,
