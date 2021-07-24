@@ -38,6 +38,7 @@ class Client {
         return User.findByPk(id);
     }
 
+    
     async newUser(user) {
     
         user.password = await bcrypt.hash(user.password, 10);
@@ -114,7 +115,7 @@ class Client {
             {where: {id: attributes.id}}
         )
 
-        let resultado = this.customerId(attributes.id);
+        let resultado = this.userId(attributes.id);
 
         return resultado;
     }

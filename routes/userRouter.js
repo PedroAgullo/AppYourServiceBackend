@@ -5,11 +5,11 @@ const admin = require('../middleware/admin.js');
 const checkMail = require('../middleware/checkMail.js');
 
 
-//CRUD CUSTOMER
-//Get All customers.
+//CRUD user
+//Get All users.
 router.get('/', admin, async (req, res) => {
     try {
-        res.json(await customerController.allCustomer());
+        res.json(await userController.alluser());
     }catch (err) {
         return res.status(500).json({
         message: err.message
@@ -17,11 +17,12 @@ router.get('/', admin, async (req, res) => {
     }
 });
 
-//Find customer by ID
+
+//Find user by ID
 router.post('/id', admin, async (req, res)=> {             
     try {
-        let id = req.body.customerId;
-        res.json(await customerController.customerId(id));
+        let id = req.body.userId;
+        res.json(await userController.userId(id));
         
     } catch (err) {
         return res.status(500).json({
@@ -30,12 +31,12 @@ router.post('/id', admin, async (req, res)=> {
     }
 });
 
-//Find customer by email
+
+//Find user by email
 router.post('/email', admin, async (req, res)=> {             
     try {
-
         let email = req.body.email;
-        res.json(await customerController.mailCustomer(email));
+        res.json(await userController.mailuser(email));
         
     } catch (err) {
         return res.status(500).json({
@@ -45,12 +46,11 @@ router.post('/email', admin, async (req, res)=> {
 });
 
 
-
-//Find customer by dni
+//Find user by dni
 router.post('/dni', admin, async (req, res)=> {             
     try {
         let dni = req.body.dni;
-        res.json(await customerController.dniCustomer(dni));
+        res.json(await userController.dniuser(dni));
         
     } catch (err) {
         return res.status(500).json({
@@ -60,15 +60,11 @@ router.post('/dni', admin, async (req, res)=> {
 });
 
 
-
-
-
-
-//Find customer by name
+//Find user by name
 router.post('/name', authenticate, async (req, res)=> {          
     try {
         let name = req.body.name;
-        res.json(await customerController.nameCustomer(name));
+        res.json(await userController.nameuser(name));
         
     } catch (err) {
         return res.status(500).json({
@@ -77,11 +73,12 @@ router.post('/name', authenticate, async (req, res)=> {
     }
 });
 
-//Add a new Customer
+
+//Add a new user
 router.post('/', checkMail, async (req, res)=> {
     try {
         const body = req.body;
-        res.json(await customerController.newCustomer(body));
+        res.json(await userController.newUser(body));
         
     } catch (err) {
         return res.status(500).json({
@@ -91,11 +88,11 @@ router.post('/', checkMail, async (req, res)=> {
 });
 
 
-//Modify a customer
+//Modify a user
 router.post('/update', authenticate, async (req, res)=> {
     try {
         let attributes = req.body;
-        res.json(await customerController.modifyCustomer(attributes));
+        res.json(await userController.modifyuser(attributes));
         
     } catch (err) {
         return res.status(500).json({
@@ -104,39 +101,11 @@ router.post('/update', authenticate, async (req, res)=> {
     }
 });
 
-//MOdifica el atributo infantil del usuario
-router.post('/infantil', authenticate, async (req, res)=> {
-    try {
-        let attributes = req.body;
-        res.json(await customerController.modifyInfantil(attributes));
-        
-    } catch (err) {
-        return res.status(500).json({
-            mensaje: err.message
-        });
-    }
-});
 
-//MOdifica el atributo premium del usuario
-router.post('/premium', authenticate, async (req, res)=> {
-    try {
-        let attributes = req.body;
-        res.json(await customerController.modifyPremium(attributes));
-        
-    } catch (err) {
-        return res.status(500).json({
-            mensaje: err.message
-        });
-    }
-});
-
-//Delete a customer
+//Delete a user
 router.post('/modify', admin, async (req, res) =>{
-    try {
-        
-        
-        res.json(await customerController.modifyCustomer(req.body));
-        
+    try {        
+        res.json(await userController.modifyuser(req.body));        
     }catch (err) {
         return res.status(500).json({
             message: err.message
@@ -145,11 +114,11 @@ router.post('/modify', admin, async (req, res) =>{
 });
 
 
-
+//Activa la cuenta del usuario a través del token enviado en el email.
 router.get("/confirm/:confirmationCode", async (req, res) => {
     try {
       token = req.params.confirmationCode;
-      res.json(await customerController.updateActive(token));
+      res.json(await userController.updateActive(token));
     } catch (err) {
       return res.status(500).json({
         message: err.message,

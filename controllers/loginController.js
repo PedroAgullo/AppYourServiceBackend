@@ -18,13 +18,13 @@ class LoginController {
 
         let verify = await bcrypt.compare(passwordCheck, password);
 
-        // if(!verify){
-        //     throw new Error('Wrong user or password2');
-        // }
+        if(!verify){
+            throw new Error('Wrong user or password2');
+        }
 
-        // if (!user.isActive) {
-        //     throw new Error("La cuenta no está activa. Por favor, revisa tu correo electrónico y activa tu cuenta.");
-        //   }
+        if (!user.isActive) {
+            throw new Error("La cuenta no está activa. Por favor, revisa tu correo electrónico y activa tu cuenta.");
+          }
 
         let payload = {
             idUser : user.id,

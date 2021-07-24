@@ -3,7 +3,7 @@ const userController = require ('../controllers/userController.js');
 
 const checkMail = async (req, res, next) => {
 
-    const existsMail = await userController.mailCustomer(req.body.email);
+    const existsMail = await userController.mailUser(req.body.email);
 
     try {
         if (existsMail != null){

@@ -21,7 +21,7 @@ module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
         <h2>Hola ${name}</h2>
         <p>Gracias por registrarte en El Séptimo Arte. Tu videoclub online!  
         Por favor, confirma tu email haciendo click en el siguiente enlace.</p>
-        <a href=http://localhost:3005/customer/confirm/${confirmationCode}> Activar cuenta.</a>
+        <a href=http://localhost:3005/user/confirm/${confirmationCode}> Activar cuenta.</a>
         </div>`,
   }).catch(err => console.log(err));
 };
