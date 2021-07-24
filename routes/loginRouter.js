@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const loginController = require('../controllers/loginController');
-const customerController = require('../controllers/customerController');
+const userController = require('../controllers/userController');
 
 
 router.post('/', async (req, res)=> {
@@ -8,7 +8,7 @@ router.post('/', async (req, res)=> {
         const mailCheck = req.body.email;
         const passwordCheck= req.body.password;
         let token = await loginController.validate(mailCheck,passwordCheck);
-        let customer = await customerController.mailCustomer(mailCheck);
+        let customer = await userController.mailUser(mailCheck);
         res.status(200).json({token, customer});
         
     }catch (err) {

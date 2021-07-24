@@ -1,4 +1,4 @@
-const { Customer } = require('../models'); //No necesita indicarle el archivo, solo la carpeta, ya que lo desestructura desde index.js
+const { User } = require('../models'); //No necesita indicarle el archivo, solo la carpeta, ya que lo desestructura desde index.js
 const bcrypt = require('bcrypt');
 const nodemailer = require('../config/nodemailerConfig.js');
 
@@ -6,38 +6,39 @@ const nodemailer = require('../config/nodemailerConfig.js');
 
 class Client {
 
-    async allCustomer(){
+    async allUser(){
 
-        return Customer.findAll();
+        return User.findAll();
 
     }
 
-    async nameCustomer(name){
-        return Customer.findOne({
-            where: {name}
-        })
-    }
 
-    async mailCustomer(email){
+    // async nameUser(name){
+    //     return User.findOne({
+    //         where: {name}
+    //     })
+    // }
 
-         let resultado = await Customer.findOne({
+    async mailUser(email){
+        console.log("email de user: ", email);
+         let resultado = await User.findOne({
             where: {email}
         })
         return resultado;
     }
 
-    async dniCustomer(dni){
-        return Customer.findOne({
+    async dniUser(dni){
+        return User.findOne({
             where: {dni}
         })
     }
 
-    async customerId(id){
+    async userId(id){
 
-        return Customer.findByPk(id);
+        return User.findByPk(id);
     }
 
-    async newCustomer(user) {
+    async newUser(user) {
     
         user.password = await bcrypt.hash(user.password, 10);
         
@@ -63,7 +64,7 @@ class Client {
           token: token
         }
 
-        let usuario = await Customer.create(user);
+        let usuario = await User.create(user);
     
         //Llamamos a la funcion para enviar el correo al usuario.
         
@@ -72,16 +73,17 @@ class Client {
         return usuario;
       }
     
+      //Encuentra el archivo al que pertenece el token dado por el email para activarle la cuenta.
       async findByToken(token) {
-        return Customer.findAll({where:{ token: token }});
+        return User.findAll({where:{ token: token }});
       }
 
       //Activa la cuenta del usuario buscando la token dada por el parámetro.
       async updateActive(token) {
 
-        let user = await Customer.findOne({where:{token}});
+        let user = await User.findOne({where:{token}});
 
-        let usuario = await Customer.update(
+        let usuario = await User.update(
             {
                 isActive: true,
               },
@@ -96,15 +98,16 @@ class Client {
       }
 
 
-    async deleteCustomer(id){
-        return Customer.destroy({
+    async deleteUser(id){
+        return User.destroy({
             where: {id}
         })
     }
 
-    async modifyCustomer(attributes){
+    //Actualiza los datosd el usuario.
+    async modifyUser(attributes){
         console.log(attributes);
-       await  Customer.update(
+       await  User.update(
             //Datos que cambiamos
             {phone: attributes.phone, address: attributes.address, city: attributes.city, postalcode: attributes.postalcode},
             //Donde..
@@ -116,33 +119,9 @@ class Client {
         return resultado;
     }
 
-    async modifyInfantil(attributes){
-        await  Customer.update(
-             //Datos que cambiamos
-             {infantil: attributes.infantil},
-             //Donde..
-             {where: {id: attributes.idUser}}
-         )
- 
-         let resultado = this.customerId(attributes.idUser);
- 
-         return resultado;
-     }
 
-     async modifyPremium(attributes){
-        await  Customer.update(
-             //Datos que cambiamos
-             {premium: attributes.premium},
-             //Donde..
-             {where: {id: attributes.id}}
-         )
- 
-         let resultado = this.customerId(attributes.id);
- 
-         return resultado;
-     }
 
     }
 
-let customerController = new Client();
-module.exports = customerController;
+let userController = new Client();
+module.exports = userController;
