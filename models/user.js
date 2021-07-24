@@ -17,13 +17,16 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    city: DataTypes.STRING,
-    postalCode: DataTypes.STRING,
-    
+    password: DataTypes.STRING,    
     address: DataTypes.STRING,
-    birthdate: DataTypes.INTEGER,
-    dni: DataTypes.STRING
+    city: DataTypes.STRING,    
+    postalCode: DataTypes.STRING,    
+    birthday: DataTypes.DATEONLY,
+    dni: DataTypes.STRING,
+    phone: DataTypes.INTEGER,
+    isActive: DataTypes.BOOLEAN,
+    isAdmin: DataTypes.BOOLEAN,
+    token: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',

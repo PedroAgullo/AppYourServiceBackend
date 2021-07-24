@@ -11,14 +11,43 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      lastName: {
+        type: Sequelize.STRING
+      },
+      email:{
+        type: Sequelize.STRING
+      },
+      password:{
+        type: Sequelize.STRING
+      },
       address: {
         type: Sequelize.STRING
       },
-      age: {
-        type: Sequelize.INTEGER
+      city: {
+        type: Sequelize.STRING
+      },
+      postalCode: {
+        type: Sequelize.STRING
+      },
+      birthday: {
+        type: Sequelize.DATEONLY
       },
       dni: {
         type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.INTEGER
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      isAdmin:{
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      token:{
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
